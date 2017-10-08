@@ -21,15 +21,17 @@ namespace ReversiXNAGame.Messages
         public Loading(Rectangle screenRec)
         {
             screenRectangle = screenRec;
-            loadingTexture = curGame.LoadContent<Texture2D>(@"Images\Loading");
-            background = curGame.LoadContent<Texture2D>(@"Images\LoadingBackground");
-            board = curGame.LoadContent<Texture2D>(@"Images\Board");
         }
 
         public override void Initialize()
         {
             showTime = 1000;
             passedTime = 0;
+
+            loadingTexture = curGame.LoadContent<Texture2D>(@"Images\Loading");
+            background = curGame.LoadContent<Texture2D>(@"Images\LoadingBackground");
+            board = curGame.LoadContent<Texture2D>(@"Images\Board");
+
             base.Initialize();
         }
 

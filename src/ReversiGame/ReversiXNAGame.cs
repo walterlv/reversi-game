@@ -49,7 +49,15 @@ namespace ReversiXNAGame
             currentKeyboardState = Keyboard.GetState(Keys.F, Keys.Escape);
             lastKeyboardState = Keyboard.GetState(Keys.F, Keys.Escape);
 
+            Rectangle boardRectangle = new Rectangle((ScreenWidth - ScreenHeight) / 2, 0, ScreenHeight, ScreenHeight);
+            playerSettings = CreateChild<PlayerSettingBoard, Rectangle>(boardRectangle);
+            loading = CreateChild<Loading, Rectangle>(boardRectangle);
+            board = CreateChild<Board, Rectangle>(boardRectangle);
+            fpsCounter = CreateChild<FPSCounter>();
+
             base.Initialize();
+
+            playerSettings.Show(SettingType.Start);
         }
 
         /// <summary>
@@ -59,12 +67,6 @@ namespace ReversiXNAGame
         {
             // TODO: 使用 this.Content 来加载游戏内容.
             debugFont = LoadContent<SpriteFont>(@"Fonts\TitleFont");
-            Rectangle boardRectangle = new Rectangle((ScreenWidth - ScreenHeight) / 2, 0, ScreenHeight, ScreenHeight);
-            playerSettings = CreateChild<PlayerSettingBoard, Rectangle>(boardRectangle);
-            playerSettings.Show(SettingType.Start);
-            loading = CreateChild<Loading, Rectangle>(boardRectangle);
-            board = CreateChild<Board, Rectangle>(boardRectangle);
-            fpsCounter = CreateChild<FPSCounter>();
         }
 
         /// <summary>

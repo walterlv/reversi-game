@@ -54,6 +54,10 @@ namespace ReversiXNAGame.ReversiBoard
         public Piece(Rectangle pieceRec)
         {
             pieceRectangle = pieceRec;
+        }
+
+        public override void Initialize()
+        {
             pieceTextureBlack = curGame.LoadContent<Texture2D>(@"Images\BlackPiece");
             pieceTextureWhite = curGame.LoadContent<Texture2D>(@"Images\WhitePiece");
             isEnabledTexture = curGame.LoadContent<Texture2D>(@"Images\Enabled");
@@ -63,10 +67,7 @@ namespace ReversiXNAGame.ReversiBoard
             currentState = PieceState.Empty;
             nextState = PieceState.Empty;
             currentDisplay = DisplayState.Normal;
-        }
 
-        public override void Initialize()
-        {
             base.Initialize();
         }
 

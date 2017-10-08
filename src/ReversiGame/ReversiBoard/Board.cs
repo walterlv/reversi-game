@@ -29,6 +29,7 @@ namespace ReversiXNAGame.ReversiBoard
         Texture2D boardTexture;
         // 棋盘位置
         Rectangle boardRectangle;
+        Rectangle boardRect;
         // 棋盘状态
         private BoardState boardState;
         public BoardState CurrentBoardState
@@ -60,27 +61,29 @@ namespace ReversiXNAGame.ReversiBoard
         {
         }
 
-        public Board(Rectangle boardRec)
+        public Board(Rectangle boardRect)
         {
             CurrentBoard = this;
-            BoardRectangle = boardRectangle = boardRec;
+            this.boardRect = boardRect;
+        }
+
+        public override void Initialize()
+        {
+            BoardRectangle = boardRectangle = boardRect;
             boardTexture = curGame.LoadContent<Texture2D>(@"Images\Board");
             debugFont = curGame.LoadContent<SpriteFont>(@"Fonts\TitleFont");
-            int pieceSize = boardRec.Width / ReversiGame.BoardSize;
+            int pieceSize = boardRect.Width / ReversiGame.BoardSize;
             for (int i = 0; i < ReversiGame.BoardSize; i++)
             {
                 for (int j = 0; j < ReversiGame.BoardSize; j++)
                 {
                     pieces[i, j] = CreateChild<Piece, Rectangle>(
                         new Rectangle(
-                            boardRec.X + pieceSize * i,
-                            boardRec.Y + pieceSize * j, pieceSize, pieceSize));
+                            boardRect.X + pieceSize * i,
+                            boardRect.Y + pieceSize * j, pieceSize, pieceSize));
                 }
             }
-        }
 
-        public override void Initialize()
-        {
             IsInitializing = true;
             // 如果有上一局棋, 则清除上一局棋盘
             if (reversiGame != null) pieces[reversiGame.LastPosition.X, reversiGame.LastPosition.Y].IsLastPiece = false;

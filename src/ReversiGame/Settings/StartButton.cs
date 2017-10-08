@@ -42,16 +42,17 @@ namespace ReversiXNAGame.Settings
             buttonRectangle = buttonRec;
 
             buttonTexture = null;
-            buttonStartNormalTexture = curGame.LoadContent<Texture2D>(@"Images\StartButton0");
-            buttonStartRollTexture = curGame.LoadContent<Texture2D>(@"Images\StartButton1");
-            buttonResumeNormalTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton0");
-            buttonResumeRollTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton1");
-            buttonRestartRollTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton2");
         }
 
 
         public override void Initialize()
         {
+            buttonStartNormalTexture = curGame.LoadContent<Texture2D>(@"Images\StartButton0");
+            buttonStartRollTexture = curGame.LoadContent<Texture2D>(@"Images\StartButton1");
+            buttonResumeNormalTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton0");
+            buttonResumeRollTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton1");
+            buttonRestartRollTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton2");
+
             currentMouseState = Mouse.GetState();
             lastMouseState = Mouse.GetState();
             currentKeyboardState = Keyboard.GetState(Keys.Enter);
