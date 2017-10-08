@@ -23,6 +23,17 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         {
         }
 
+        public T CreateGame<T>(IDrawingSession dc)
+            where T : Game, new()
+        {
+            var game = new T
+            {
+                spriteBatch = dc,
+            };
+            game.curGame = game;
+            return game;
+        }
+
         protected T CreateChild<T>()
             where T : DrawableGameComponent, new()
         {

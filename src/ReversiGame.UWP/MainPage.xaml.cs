@@ -26,7 +26,6 @@ namespace Walterlv.Gaming.Reversi
         {
             using (var ds = args.DrawingSession)
             {
-                ds.FillRectangle(new Rect(), );
             }
         }
     }

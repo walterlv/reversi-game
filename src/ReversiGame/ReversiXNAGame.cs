@@ -24,8 +24,6 @@ namespace ReversiXNAGame
     {
         const int ScreenWidth = 640;
         const int ScreenHeight = 640;
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
         SpriteFont debugFont;
 
         public GameState State;
@@ -40,7 +38,6 @@ namespace ReversiXNAGame
 
         public ReversiXNAGame()
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -52,12 +49,6 @@ namespace ReversiXNAGame
         /// </summary>
         public override void Initialize()
         {
-            // TODO: 添加初始化逻辑
-            graphics.PreferredBackBufferWidth = ScreenWidth;
-            graphics.PreferredBackBufferHeight = ScreenHeight;
-            graphics.ApplyChanges();
-            this.IsMouseVisible = true;
-            this.IsFixedTimeStep = false;
             State = GameState.Menu;
 
             base.Initialize();
@@ -68,9 +59,6 @@ namespace ReversiXNAGame
         /// </summary>
         public override void LoadContent()
         {
-            // 创建一个新的 SpriteBatch, 可以用来绘制纹理.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: 使用 this.Content 来加载游戏内容.
             debugFont = Content.Load<SpriteFont>(@"Fonts\TitleFont");
             Rectangle boardRectangle = new Rectangle((ScreenWidth - ScreenHeight) / 2, 0, ScreenHeight, ScreenHeight);
@@ -95,9 +83,6 @@ namespace ReversiXNAGame
         /// <param name="gameTime">提供一个游戏时间快照.</param>
         public override void Update(GameTime gameTime)
         {
-            // 允许游戏退出
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
             // 获取键盘状态
             lastKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
@@ -173,10 +158,6 @@ namespace ReversiXNAGame
         /// <param name="gameTime">提供一个游戏时间快照.</param>
         public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-
-            // TODO: 添加绘制代码
-            spriteBatch.Begin();
             if (State == GameState.Menu)
             {
                 playerSettings.Draw(gameTime);
@@ -201,7 +182,6 @@ namespace ReversiXNAGame
             {
             }
             if (GameSettings.ShowFPS) fpsCounter.Draw(gameTime);
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }
