@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{7EF7AD81-8CB5-43FA-A0C9-4125E82CB4C8}</ProjectGuid>
+    <ProjectGuid>{ED07DCD2-E9F8-418A-AC64-2B417A6E65F2}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Walterlv.Gaming.Reversi</RootNamespace>
@@ -107,7 +107,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="ReversiGame_TemporaryKey.pfx" />
+    <None Include="ReversiGame.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -177,22 +177,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ReversiAI\ReversiAI.csproj">
+    <ProjectReference Include="..\ReversiAI\ReversiAI.csproj">
       <Project>{95bdc202-134e-4703-9cbe-a2b4a9687a93}</Project>
       <Name>ReversiAI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Reversi\Reversi.csproj">
+    <ProjectReference Include="..\Reversi\Reversi.csproj">
       <Project>{737597fa-d0aa-4c38-a7f4-4ce31c15c7d7}</Project>
       <Name>Reversi</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameElements\" />
-    <Folder Include="Messages\" />
-    <Folder Include="Players\" />
-    <Folder Include="ReversiBoard\" />
-    <Folder Include="Settings\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
