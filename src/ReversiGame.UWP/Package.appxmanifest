@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="baa627c1-a718-4836-996e-422dfc40983c" Publisher="CN=lvyi" Version="2.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="baa627c1-a718-4836-996e-422dfc40983c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="15494walterlv..UWP" Publisher="CN=7A3808B7-5E49-45C0-9E4F-ECEABC686D02" Version="2.0.1.0" />
+  <mp:PhoneIdentity PhoneProductId="d2e6d23e-85cf-4663-9a6e-029538fab898" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>ReversiGame</DisplayName>
-    <PublisherDisplayName>吕毅</PublisherDisplayName>
+    <DisplayName>黑白棋.UWP</DisplayName>
+    <PublisherDisplayName>吕毅 (walterlv)</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Walterlv.Gaming.Reversi.App">
-      <uap:VisualElements DisplayName="ReversiGame" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ReversiGame" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="黑白棋" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Reversi Game 黑白棋" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
