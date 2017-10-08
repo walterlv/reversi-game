@@ -64,8 +64,8 @@ namespace ReversiXNAGame.ReversiBoard
         {
             CurrentBoard = this;
             BoardRectangle = boardRectangle = boardRec;
-            boardTexture = curGame.Content.Load<Texture2D>(@"Images\Board");
-            debugFont = curGame.Content.Load<SpriteFont>(@"Fonts\TitleFont");
+            boardTexture = curGame.LoadContent<Texture2D>(@"Images\Board");
+            debugFont = curGame.LoadContent<SpriteFont>(@"Fonts\TitleFont");
             int pieceSize = boardRec.Width / ReversiGame.BoardSize;
             for (int i = 0; i < ReversiGame.BoardSize; i++)
             {

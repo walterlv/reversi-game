@@ -60,7 +60,7 @@ namespace ReversiXNAGame
         public override void LoadContent()
         {
             // TODO: 使用 this.Content 来加载游戏内容.
-            debugFont = Content.Load<SpriteFont>(@"Fonts\TitleFont");
+            debugFont = LoadContent<SpriteFont>(@"Fonts\TitleFont");
             Rectangle boardRectangle = new Rectangle((ScreenWidth - ScreenHeight) / 2, 0, ScreenHeight, ScreenHeight);
             playerSettings = CreateChild<PlayerSettingBoard, Rectangle>(boardRectangle);
             playerSettings.Show(SettingType.Start);

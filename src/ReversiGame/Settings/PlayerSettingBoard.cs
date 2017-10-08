@@ -64,10 +64,10 @@ namespace ReversiXNAGame.Settings
             AICount = ReversiAIType.GetAINames().Length;
             AIIndex[0] = GameSettings.DefaultAIIndex;
             AIIndex[1] = GameSettings.DefaultAIIndex;
-            board = curGame.Content.Load<Texture2D>(@"Images\Board");
-            settingBoard = curGame.Content.Load<Texture2D>(@"Images\SettingBoard");
+            board = curGame.LoadContent<Texture2D>(@"Images\Board");
+            settingBoard = curGame.LoadContent<Texture2D>(@"Images\SettingBoard");
             int pieceSize = boardRec.Width / ReversiGame.BoardSize;
-            startButton = new StartButton(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 6, pieceSize * 2, pieceSize));
+            startButton = CreateChild<StartButton, Rectangle>(new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 6, pieceSize * 2, pieceSize));
             startButton.Initialize(settingType);
             showPieces[0] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 2, pieceSize, pieceSize));
             showPieces[0].PieceState = PieceState.Black;

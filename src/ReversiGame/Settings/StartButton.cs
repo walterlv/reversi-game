@@ -42,11 +42,11 @@ namespace ReversiXNAGame.Settings
             buttonRectangle = buttonRec;
 
             buttonTexture = null;
-            buttonStartNormalTexture = curGame.Content.Load<Texture2D>(@"Images\StartButton0");
-            buttonStartRollTexture = curGame.Content.Load<Texture2D>(@"Images\StartButton1");
-            buttonResumeNormalTexture = curGame.Content.Load<Texture2D>(@"Images\ResumeButton0");
-            buttonResumeRollTexture = curGame.Content.Load<Texture2D>(@"Images\ResumeButton1");
-            buttonRestartRollTexture = curGame.Content.Load<Texture2D>(@"Images\ResumeButton2");
+            buttonStartNormalTexture = curGame.LoadContent<Texture2D>(@"Images\StartButton0");
+            buttonStartRollTexture = curGame.LoadContent<Texture2D>(@"Images\StartButton1");
+            buttonResumeNormalTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton0");
+            buttonResumeRollTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton1");
+            buttonRestartRollTexture = curGame.LoadContent<Texture2D>(@"Images\ResumeButton2");
         }
 
 

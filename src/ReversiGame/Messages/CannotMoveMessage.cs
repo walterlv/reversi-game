@@ -13,7 +13,7 @@ namespace ReversiXNAGame.Messages
 
         public CannotMoveMessage()
         {
-            messageFont = curGame.Content.Load<SpriteFont>(@"Fonts\TitleFont");
+            messageFont = curGame.LoadContent<SpriteFont>(@"Fonts\TitleFont");
         }
 
         public override void Initialize()

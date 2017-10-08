@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using ReversiXNAGame;
 using ReversiXNAGame.ReversiBoard;
@@ -10,6 +11,10 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         protected IDrawingSession spriteBatch { get; private set; }
 
         protected Game curGame { get; private set; }
+
+        private DrawableGameComponent _parent;
+
+        private readonly List<DrawableGameComponent> _children = new List<DrawableGameComponent>();
 
         public virtual void Initialize()
         {
@@ -39,9 +44,11 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         {
             var child = new T
             {
+                _parent = this,
                 curGame = curGame,
                 spriteBatch = spriteBatch
             };
+            _children.Add(child);
             return child;
         }
 
@@ -49,6 +56,8 @@ namespace Walterlv.ReversiGame.FrameworkInterop
             where T : DrawableGameComponent
         {
             var child = (T) Activator.CreateInstance(typeof(T), param);
+            child._parent = this;
+            _children.Add(child);
             child.curGame = curGame;
             child.spriteBatch = spriteBatch;
             return child;
@@ -58,6 +67,8 @@ namespace Walterlv.ReversiGame.FrameworkInterop
             where T : DrawableGameComponent
         {
             var child = (T) Activator.CreateInstance(typeof(T), param0, param1);
+            child._parent = this;
+            _children.Add(child);
             child.curGame = curGame;
             child.spriteBatch = spriteBatch;
             return child;
@@ -67,6 +78,8 @@ namespace Walterlv.ReversiGame.FrameworkInterop
             where T : DrawableGameComponent
         {
             var child = (T) Activator.CreateInstance(typeof(T), param0, param1, param2);
+            child._parent = this;
+            _children.Add(child);
             child.curGame = curGame;
             child.spriteBatch = spriteBatch;
             return child;
@@ -79,12 +92,21 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         public GameState State { get; set; }
         public bool IsActive { get; set; } = true;
 
+        private readonly List<GameContent> _contents = new List<GameContent>();
+
         public virtual void LoadContent()
         {
         }
 
         public virtual void UnloadContent()
         {
+        }
+
+        public T LoadContent<T>(string path) where T : GameContent
+        {
+            var content = (T) Activator.CreateInstance(typeof(T), path);
+            _contents.Add(content);
+            return content;
         }
     }
 
@@ -94,7 +116,16 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         void Draw(Texture2D texture, Rectangle area, Color color);
     }
 
-    public class Texture2D
+    public class GameContent
+    {
+        public string Path { get; set; }
+    }
+
+    public class Texture2D : GameContent
+    {
+    }
+
+    public class SpriteFont : GameContent
     {
     }
 
@@ -129,10 +160,6 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         public int CenterX => X + Width / 2;
 
         public int CenterY => Y + Height / 2;
-    }
-
-    public class SpriteFont
-    {
     }
 
     public struct GameTime

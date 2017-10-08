@@ -54,12 +54,12 @@ namespace ReversiXNAGame.ReversiBoard
         public Piece(Rectangle pieceRec)
         {
             pieceRectangle = pieceRec;
-            pieceTextureBlack = curGame.Content.Load<Texture2D>(@"Images\BlackPiece");
-            pieceTextureWhite = curGame.Content.Load<Texture2D>(@"Images\WhitePiece");
-            isEnabledTexture = curGame.Content.Load<Texture2D>(@"Images\Enabled");
-            willMoveTexture = curGame.Content.Load<Texture2D>(@"Images\WillMove");
-            willReverseTexture = curGame.Content.Load<Texture2D>(@"Images\WillReverse");
-            lastPieceTexture = curGame.Content.Load<Texture2D>(@"Images\PieceFlag");
+            pieceTextureBlack = curGame.LoadContent<Texture2D>(@"Images\BlackPiece");
+            pieceTextureWhite = curGame.LoadContent<Texture2D>(@"Images\WhitePiece");
+            isEnabledTexture = curGame.LoadContent<Texture2D>(@"Images\Enabled");
+            willMoveTexture = curGame.LoadContent<Texture2D>(@"Images\WillMove");
+            willReverseTexture = curGame.LoadContent<Texture2D>(@"Images\WillReverse");
+            lastPieceTexture = curGame.LoadContent<Texture2D>(@"Images\PieceFlag");
             currentState = PieceState.Empty;
             nextState = PieceState.Empty;
             currentDisplay = DisplayState.Normal;
