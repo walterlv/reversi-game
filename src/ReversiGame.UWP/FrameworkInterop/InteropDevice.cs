@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -9,14 +10,25 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
 {
     internal class InteropKeyboard : IKeyboard
     {
+        private CoreDispatcher _dispatcher;
+        private InteropKeyboardState _lastAsyncState;
+
         public IKeyboardState GetState(params Keys[] keys)
         {
             if (Window.Current == null)
             {
-                return new InteropKeyboardState(Enumerable.Empty<Keys>());
+                _dispatcher?.RunAsync(CoreDispatcherPriority.Low, () =>
+                {
+                    _lastAsyncState = new InteropKeyboardState(
+                        keys.Where(x =>
+                            Window.Current.CoreWindow.GetKeyState(x.ToVirtualKey())
+                                .HasFlag(CoreVirtualKeyStates.Down)));
+                });
+                return _lastAsyncState ?? new InteropKeyboardState(Enumerable.Empty<Keys>());
             }
             else
             {
+                _dispatcher = Window.Current.Dispatcher;
                 return new InteropKeyboardState(
                     keys.Where(x =>
                         Window.Current.CoreWindow.GetKeyState(x.ToVirtualKey())
@@ -49,15 +61,28 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
 
     internal class InteropMouse : IMouse
     {
+        internal static Point LastMousePoint;
+        private CoreDispatcher _dispatcher;
+        private InteropMouseState _lastAsyncState;
+
         public IMouseState GetState()
         {
             if (Window.Current == null)
             {
-                return new InteropMouseState(0, 0, false);
+                _dispatcher?.RunAsync(CoreDispatcherPriority.Low, () =>
+                {
+                    _lastAsyncState = new InteropMouseState(
+                        (int)LastMousePoint.X, (int)LastMousePoint.Y,
+                        Window.Current.CoreWindow.GetKeyState(VirtualKey.LeftButton)
+                            .HasFlag(CoreVirtualKeyStates.Down));
+                });
+                return _lastAsyncState ?? new InteropMouseState(0, 0, false);
             }
             else
             {
-                return new InteropMouseState(0, 0,
+                _dispatcher = Window.Current.Dispatcher;
+                return new InteropMouseState(
+                    (int)LastMousePoint.X, (int)LastMousePoint.Y,
                     Window.Current.CoreWindow.GetKeyState(VirtualKey.LeftButton)
                         .HasFlag(CoreVirtualKeyStates.Down));
             }

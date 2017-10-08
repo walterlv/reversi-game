@@ -1,7 +1,9 @@
 ﻿using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.UI;
@@ -52,6 +54,11 @@ namespace Walterlv.Gaming.Reversi
                     _interopDrawing.Session = null;
                 }
             }
+        }
+
+        private void CanvasAnimatedControl_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            InteropMouse.LastMousePoint = e.GetCurrentPoint((UIElement) sender).Position;
         }
     }
 }
