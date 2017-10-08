@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Walterlv.Gaming.Reversi</RootNamespace>
-    <AssemblyName>ReversiGame</AssemblyName>
+    <AssemblyName>ReversiGame.UWP</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
@@ -99,9 +99,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\MenuPage.xaml.cs">
-      <DependentUpon>MenuPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -163,10 +160,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MenuPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -180,6 +173,10 @@
     <ProjectReference Include="..\ReversiAI\ReversiAI.csproj">
       <Project>{95bdc202-134e-4703-9cbe-a2b4a9687a93}</Project>
       <Name>ReversiAI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReversiGame\ReversiGame.csproj">
+      <Project>{fdb71751-a767-4139-a1ad-af201f028d88}</Project>
+      <Name>ReversiGame</Name>
     </ProjectReference>
     <ProjectReference Include="..\Reversi\Reversi.csproj">
       <Project>{737597fa-d0aa-4c38-a7f4-4ce31c15c7d7}</Project>

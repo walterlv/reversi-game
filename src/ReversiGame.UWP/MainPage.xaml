@@ -5,9 +5,15 @@
     xmlns:local="using:Walterlv.Gaming.Reversi"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <xaml:CanvasAnimatedControl
+            ClearColor="Black"
+            CreateResources="CanvasAnimatedControl_CreateResources"
+            Update="CanvasAnimatedControl_Update"
+            Draw="CanvasAnimatedControl_Draw"/>
         <Frame x:Name="ContentFrame"/>
     </Grid>
 </Page>

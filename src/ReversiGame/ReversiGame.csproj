@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <RootNamespace>Walterlv.ReversiGame</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReversiAI\ReversiAI.csproj" />
+    <ProjectReference Include="..\Reversi\Reversi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\..\..\..\.nuget\packages\System.Numerics.Vectors\4.1.1\ref\netstandard1.0\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>
