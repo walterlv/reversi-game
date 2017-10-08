@@ -1,5 +1,7 @@
 ﻿using Windows.Foundation;
 using Windows.UI.Xaml.Controls;
+using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Walterlv.Gaming.Reversi.FrameworkInterop;
