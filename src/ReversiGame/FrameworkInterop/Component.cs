@@ -29,12 +29,12 @@ namespace Walterlv.ReversiGame.FrameworkInterop
 
         public virtual void Update(GameTime time)
         {
-            _children.ForEach(x => x.Update(time));
+//            _children.ForEach(x => x.Update(time));
         }
 
         public virtual void Draw(GameTime time)
         {
-            _children.ForEach(x => x.Draw(time));
+//            _children.ForEach(x => x.Draw(time));
         }
 
         public static T CreateGame<T>(IDrawingSession dc, IKeyboard keyboard, IMouse mouse)

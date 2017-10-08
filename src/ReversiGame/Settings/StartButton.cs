@@ -110,7 +110,7 @@ namespace ReversiXNAGame.Settings
                     else if (type == SettingType.Pause) buttonTexture = buttonResumeNormalTexture;
                 }
             }
-            base.Update(gameTime);
+//            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -120,7 +120,7 @@ namespace ReversiXNAGame.Settings
                 spriteBatch.Draw(buttonTexture, buttonRectangle, Color.White);
                 buttonTexture = null;
             }
-            base.Draw(gameTime);
+//            base.Draw(gameTime);
         }
     }
 }

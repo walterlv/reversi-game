@@ -257,7 +257,7 @@ namespace ReversiXNAGame.Settings
             {
                 curGame.State = GameState.InGame;
             }
-            base.Update(gameTime);
+//            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -284,7 +284,7 @@ namespace ReversiXNAGame.Settings
                 spriteBatch.Draw(board, boardRectangle, Color.White);
                 spriteBatch.Draw(settingBoard, boardRectangle, Color.White);
             }
-            base.Draw(gameTime);
+//            base.Draw(gameTime);
         }
     }
 }
