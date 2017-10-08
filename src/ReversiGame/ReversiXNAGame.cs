@@ -57,7 +57,7 @@ namespace ReversiXNAGame
         /// <summary>
         /// LoadContent 在一次游戏中只调用一次, 这里是加载内容的地方.
         /// </summary>
-        public override void LoadContent()
+        protected override void LoadContent()
         {
             // TODO: 使用 this.Content 来加载游戏内容.
             debugFont = LoadContent<SpriteFont>(@"Fonts\TitleFont");
@@ -72,7 +72,7 @@ namespace ReversiXNAGame
         /// <summary>
         /// UnloadContent 在一次游戏中只调用一次, 这是卸载内容的地方.
         /// </summary>
-        public override void UnloadContent()
+        protected override void UnloadContent()
         {
             // TODO: 卸载任何非 ContentManager 管理的内容.
         }

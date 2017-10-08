@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Numerics;
 using ReversiXNAGame;
 using ReversiXNAGame.ReversiBoard;
@@ -94,12 +95,24 @@ namespace Walterlv.ReversiGame.FrameworkInterop
 
         private readonly List<GameContent> _contents = new List<GameContent>();
 
-        public virtual void LoadContent()
+        public ReadOnlyCollection<GameContent> Contents { get; }
+
+        public Game()
+        {
+            Contents = new ReadOnlyCollection<GameContent>(_contents);
+        }
+
+        protected virtual void LoadContent()
         {
         }
 
-        public virtual void UnloadContent()
+        protected virtual void UnloadContent()
         {
+        }
+
+        public void LoadAllContents()
+        {
+            LoadContent();
         }
 
         public T LoadContent<T>(string path) where T : GameContent

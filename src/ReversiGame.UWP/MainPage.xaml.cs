@@ -19,12 +19,15 @@ namespace Walterlv.Gaming.Reversi
         private Game _game;
         private InteropDrawingSession _interopDrawing;
 
-        private void CanvasAnimatedControl_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
+        private async void CanvasAnimatedControl_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             _interopDrawing = new InteropDrawingSession();
             _game = DrawableGameComponent.CreateGame<ReversiXNAGame.ReversiXNAGame>(_interopDrawing);
+            _interopDrawing.Game = _game;
+
             _game.Initialize();
-            _game.LoadContent();
+            _game.LoadAllContents();
+            await _interopDrawing.CreateResources(sender, args);
         }
 
         private void CanvasAnimatedControl_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
