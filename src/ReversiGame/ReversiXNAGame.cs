@@ -33,13 +33,8 @@ namespace ReversiXNAGame
         FPSCounter fpsCounter;
 
         // 键盘状态
-        KeyboardState currentKeyboardState = new KeyboardState();
-        KeyboardState lastKeyboardState = new KeyboardState();
-
-        public ReversiXNAGame()
-        {
-            Content.RootDirectory = "Content";
-        }
+        IKeyboardState currentKeyboardState;
+        IKeyboardState lastKeyboardState;
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -50,6 +45,9 @@ namespace ReversiXNAGame
         public override void Initialize()
         {
             State = GameState.Menu;
+
+            currentKeyboardState = Keyboard.GetState(Keys.F, Keys.Escape);
+            lastKeyboardState = Keyboard.GetState(Keys.F, Keys.Escape);
 
             base.Initialize();
         }
@@ -85,7 +83,7 @@ namespace ReversiXNAGame
         {
             // 获取键盘状态
             lastKeyboardState = currentKeyboardState;
-            currentKeyboardState = Keyboard.GetState();
+            currentKeyboardState = Keyboard.GetState(Keys.F, Keys.Escape);
             // 当按下 F 键时
             if (currentKeyboardState.IsKeyDown(Keys.F) && lastKeyboardState.IsKeyUp(Keys.F))
             {

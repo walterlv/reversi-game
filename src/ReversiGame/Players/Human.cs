@@ -14,11 +14,11 @@ namespace ReversiXNAGame.Players
         // 表示已经下棋完成
         bool haveCompleted;
         // 鼠标状态
-        MouseState currentMouseState = new MouseState();
-        MouseState lastMouseState = new MouseState();
+        IMouseState currentMouseState;
+        IMouseState lastMouseState;
         // 键盘状态
-        KeyboardState currentKeyboardState = new KeyboardState();
-        KeyboardState lastKeyboardState = new KeyboardState();
+        IKeyboardState currentKeyboardState;
+        IKeyboardState lastKeyboardState;
         bool isCtrlZPressed = false;
 
         public Human(Rectangle boardRec, Piece[,] allPieces, ReversiPiece myColor)
@@ -30,6 +30,10 @@ namespace ReversiXNAGame.Players
 
         public override void Initialize()
         {
+            currentMouseState = Mouse.GetState();
+            lastMouseState = Mouse.GetState();
+            currentKeyboardState = Keyboard.GetState(Keys.LeftControl, Keys.RightControl, Keys.Z);
+            lastKeyboardState = Keyboard.GetState(Keys.LeftControl, Keys.RightControl, Keys.Z);
             base.Initialize();
         }
 
@@ -39,7 +43,7 @@ namespace ReversiXNAGame.Players
             {
                 // 获取键盘状态
                 lastKeyboardState = currentKeyboardState;
-                currentKeyboardState = Keyboard.GetState();
+                currentKeyboardState = Keyboard.GetState(Keys.LeftControl, Keys.RightControl, Keys.Z);
                 // 当按下 Ctrl+Z 时
                 if ((currentKeyboardState.IsKeyDown(Keys.LeftControl) || currentKeyboardState.IsKeyDown(Keys.RightControl))
                     && currentKeyboardState.IsKeyDown(Keys.Z))

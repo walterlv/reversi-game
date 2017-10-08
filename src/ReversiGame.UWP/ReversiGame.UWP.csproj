@@ -96,6 +96,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrameworkInterop\InteropDrawingSession.cs" />
+    <Compile Include="FrameworkInterop\InteropExtensions.cs" />
+    <Compile Include="FrameworkInterop\InteropDevice.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

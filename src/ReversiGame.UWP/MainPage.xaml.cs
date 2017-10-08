@@ -1,4 +1,6 @@
 ﻿using Windows.Foundation;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Brushes;
@@ -22,7 +24,8 @@ namespace Walterlv.Gaming.Reversi
         private async void CanvasAnimatedControl_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             _interopDrawing = new InteropDrawingSession();
-            _game = DrawableGameComponent.CreateGame<ReversiXNAGame.ReversiXNAGame>(_interopDrawing);
+            _game = DrawableGameComponent.CreateGame<ReversiXNAGame.ReversiXNAGame>(
+                _interopDrawing, new InteropKeyboard(), new InteropMouse());
             _interopDrawing.Game = _game;
 
             _game.Initialize();

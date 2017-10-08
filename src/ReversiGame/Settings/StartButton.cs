@@ -31,11 +31,11 @@ namespace ReversiXNAGame.Settings
         Texture2D buttonResumeRollTexture;
         Texture2D buttonRestartRollTexture;
         // 鼠标状态
-        MouseState currentMouseState = new MouseState();
-        MouseState lastMouseState = new MouseState();
+        IMouseState currentMouseState;
+        IMouseState lastMouseState;
         // 键盘状态
-        KeyboardState currentKeyboardState = new KeyboardState();
-        KeyboardState lastKeyboardState = new KeyboardState();
+        IKeyboardState currentKeyboardState;
+        IKeyboardState lastKeyboardState;
 
         public StartButton(Rectangle buttonRec)
         {
@@ -52,7 +52,12 @@ namespace ReversiXNAGame.Settings
 
         public override void Initialize()
         {
+            currentMouseState = Mouse.GetState();
+            lastMouseState = Mouse.GetState();
+            currentKeyboardState = Keyboard.GetState(Keys.Enter);
+            lastKeyboardState = Keyboard.GetState(Keys.Enter);
         }
+
         public void Initialize(SettingType setType)
         {
             startButtonClicked = false;
@@ -92,7 +97,7 @@ namespace ReversiXNAGame.Settings
                 }
                 // 当按下 Enter 键时
                 lastKeyboardState = currentKeyboardState;
-                currentKeyboardState = Keyboard.GetState();
+                currentKeyboardState = Keyboard.GetState(Keys.Enter);
                 if (currentKeyboardState.IsKeyUp(Keys.Enter) && lastKeyboardState.IsKeyDown(Keys.Enter))
                 {
                     if (type == SettingType.Start) startButtonClicked = true;

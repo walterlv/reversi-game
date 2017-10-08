@@ -17,7 +17,7 @@ namespace ReversiXNAGame.ReversiBoard
         GameOver,
     }
 
-    internal class Board : DrawableGameComponent
+    public class Board : DrawableGameComponent
     {
         ReversiGame reversiGame;
         Player[] player = new Player[2];
@@ -44,7 +44,7 @@ namespace ReversiXNAGame.ReversiBoard
         public bool IsInitializing = false;
 
         // 获取鼠标指针所在的棋子位置
-        public static ReversiPiecePosition IsMouseInPiece(MouseState currentMouseState)
+        public static ReversiPiecePosition IsMouseInPiece(IMouseState currentMouseState)
         {
             if (currentMouseState.X > Board.BoardRectangle.X && currentMouseState.Y > Board.BoardRectangle.Y)
             {

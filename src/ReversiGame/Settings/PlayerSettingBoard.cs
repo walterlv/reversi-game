@@ -30,14 +30,15 @@ namespace ReversiXNAGame.Settings
     {
         public PlayerTypes[] PlayerType = new PlayerTypes[2];
         ReversiGame reversiGame;
+        Rectangle boardRect;
         // 面板状态
         SettingBoardState settingBoardState;
         // 鼠标状态
-        MouseState currentMouseState = new MouseState();
-        MouseState lastMouseState = new MouseState();
+        IMouseState currentMouseState;
+        IMouseState lastMouseState;
         // 键盘状态
-        KeyboardState currentKeyboardState = new KeyboardState();
-        KeyboardState lastKeyboardState = new KeyboardState();
+        IKeyboardState currentKeyboardState;
+        IKeyboardState lastKeyboardState;
         // 设置棋盘
         Rectangle boardRectangle;
         Texture2D board;
@@ -57,8 +58,18 @@ namespace ReversiXNAGame.Settings
 
         public PlayerSettingBoard(Rectangle boardRec)
         {
+            this.boardRect = boardRec;
+        }
+
+        public override void Initialize()
+        {
+            currentMouseState = Mouse.GetState();
+            lastMouseState = Mouse.GetState();
+            currentKeyboardState = Keyboard.GetState(Keys.Escape);
+            lastKeyboardState = Keyboard.GetState(Keys.Escape);
+
             reversiGame = ReversiGame.CurrentGame;
-            boardRectangle = boardRec;
+            boardRectangle = boardRect;
 
             aiTypePieces = new Piece[2, AIMaxCount];
             AICount = ReversiAIType.GetAINames().Length;
@@ -66,36 +77,33 @@ namespace ReversiXNAGame.Settings
             AIIndex[1] = GameSettings.DefaultAIIndex;
             board = curGame.LoadContent<Texture2D>(@"Images\Board");
             settingBoard = curGame.LoadContent<Texture2D>(@"Images\SettingBoard");
-            int pieceSize = boardRec.Width / ReversiGame.BoardSize;
-            startButton = CreateChild<StartButton, Rectangle>(new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 6, pieceSize * 2, pieceSize));
+            int pieceSize = boardRect.Width / ReversiGame.BoardSize;
+            startButton = CreateChild<StartButton, Rectangle>(new Rectangle(boardRect.X + pieceSize * 3, boardRect.Y + pieceSize * 6, pieceSize * 2, pieceSize));
             startButton.Initialize(settingType);
-            showPieces[0] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 2, pieceSize, pieceSize));
+            showPieces[0] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X + pieceSize * 3, boardRect.Y + pieceSize * 2, pieceSize, pieceSize));
             showPieces[0].PieceState = PieceState.Black;
-            showPieces[1] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 4, boardRec.Y + pieceSize * 2, pieceSize, pieceSize));
+            showPieces[1] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X + pieceSize * 4, boardRect.Y + pieceSize * 2, pieceSize, pieceSize));
             showPieces[1].PieceState = PieceState.White;
-            playerTypePieces[0] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 1, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[0] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X + pieceSize * 1, boardRect.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[0].CurrentDisplay = DisplayState.CanMove;
             chooseIndex[0] = 0;
             PlayerType[0] = PlayerTypes.Human;
-            playerTypePieces[1] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 2, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[1] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X + pieceSize * 2, boardRect.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[1].CurrentDisplay = DisplayState.Normal;
-            playerTypePieces[2] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 5, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[2] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X + pieceSize * 5, boardRect.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[2].CurrentDisplay = DisplayState.CanMove;
             chooseIndex[1] = 2;
             PlayerType[1] = PlayerTypes.AI;
-            playerTypePieces[3] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 6, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[3] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X + pieceSize * 6, boardRect.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[3].CurrentDisplay = DisplayState.Normal;
             for (int i = 0; i < AIMaxCount; i++)
-                aiTypePieces[0, i] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X, boardRec.Y + pieceSize * (i + 3), pieceSize, pieceSize));
+                aiTypePieces[0, i] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X, boardRect.Y + pieceSize * (i + 3), pieceSize, pieceSize));
             for (int i = 0; i < AIMaxCount; i++)
-                aiTypePieces[1, i] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 7, boardRec.Y + pieceSize * (i + 3), pieceSize, pieceSize));
+                aiTypePieces[1, i] = CreateChild<Piece, Rectangle>(new Rectangle(boardRect.X + pieceSize * 7, boardRect.Y + pieceSize * (i + 3), pieceSize, pieceSize));
             foreach (Piece piece in showPieces) piece.ForceShow = true;
             foreach (Piece piece in playerTypePieces) piece.ForceShow = true;
             foreach (Piece piece in aiTypePieces) piece.ForceShow = true;
-        }
 
-        public override void Initialize()
-        {
             base.Initialize();
         }
         public void Show(SettingType st)
@@ -224,7 +232,7 @@ namespace ReversiXNAGame.Settings
                 }
                 // 获取键盘状态
                 lastKeyboardState = currentKeyboardState;
-                currentKeyboardState = Keyboard.GetState();
+                currentKeyboardState = Keyboard.GetState(Keys.Escape);
                 // 当按下 Escape 键时
                 if (currentKeyboardState.IsKeyUp(Keys.Escape) && lastKeyboardState.IsKeyDown(Keys.Escape))
                 {

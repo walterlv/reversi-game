@@ -2,12 +2,10 @@
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using Windows.Foundation;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Walterlv.ReversiGame.FrameworkInterop;
-using Color = Windows.UI.Color;
 using InteropColor = Walterlv.ReversiGame.FrameworkInterop.Color;
 using IDrawingSession = Walterlv.ReversiGame.FrameworkInterop.IDrawingSession;
 using SpriteFont = Walterlv.ReversiGame.FrameworkInterop.SpriteFont;
@@ -45,19 +43,6 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
             _bitmapDictionary = tasks.ToDictionary(
                 x => x.Item1.Path,
                 x => x.Item2.Result);
-        }
-    }
-
-    internal static class InteropExtensions
-    {
-        internal static Color ToColor(this InteropColor color)
-        {
-            return Color.FromArgb(color.A, color.R, color.G, color.B);
-        }
-
-        internal static Rect ToRect(this Rectangle rect)
-        {
-            return new Rect(rect.X, rect.Y, rect.Width, rect.Height);
         }
     }
 }
