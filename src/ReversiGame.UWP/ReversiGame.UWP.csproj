@@ -107,6 +107,10 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="GameContent\Fonts\NormalFont.spritefont" />
+    <None Include="GameContent\Fonts\TitleFont.spritefont" />
+    <None Include="GameContent\Images\图标.psd" />
+    <None Include="GameContent\Images\黑白棋.psd" />
     <None Include="ReversiGame.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +149,23 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="GameContent\Images\BlackPiece.png" />
+    <Content Include="GameContent\Images\Board.png" />
+    <Content Include="GameContent\Images\Enabled.png" />
+    <Content Include="GameContent\Images\Icon.png" />
+    <Content Include="GameContent\Images\IconSmall.png" />
+    <Content Include="GameContent\Images\Loading.png" />
+    <Content Include="GameContent\Images\LoadingBackground.png" />
+    <Content Include="GameContent\Images\PieceFlag.png" />
+    <Content Include="GameContent\Images\ResumeButton0.png" />
+    <Content Include="GameContent\Images\ResumeButton1.png" />
+    <Content Include="GameContent\Images\ResumeButton2.png" />
+    <Content Include="GameContent\Images\SettingBoard.png" />
+    <Content Include="GameContent\Images\StartButton0.png" />
+    <Content Include="GameContent\Images\StartButton1.png" />
+    <Content Include="GameContent\Images\WhitePiece.png" />
+    <Content Include="GameContent\Images\WillMove.png" />
+    <Content Include="GameContent\Images\WillReverse.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

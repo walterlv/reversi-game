@@ -11,11 +11,18 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
     {
         public IKeyboardState GetState(params Keys[] keys)
         {
-            return new InteropKeyboardState(
-                keys.Where(x =>
-                    Window.Current.CoreWindow.GetKeyState(x.ToVirtualKey())
-                        .HasFlag(CoreVirtualKeyStates.Down))
-            );
+            if (Window.Current == null)
+            {
+                return new InteropKeyboardState(Enumerable.Empty<Keys>());
+            }
+            else
+            {
+                return new InteropKeyboardState(
+                    keys.Where(x =>
+                        Window.Current.CoreWindow.GetKeyState(x.ToVirtualKey())
+                            .HasFlag(CoreVirtualKeyStates.Down))
+                );
+            }
         }
     }
 
@@ -44,10 +51,16 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
     {
         public IMouseState GetState()
         {
-            ;
-            return new InteropMouseState(0, 0,
-                Window.Current.CoreWindow.GetKeyState(VirtualKey.LeftButton)
-                    .HasFlag(CoreVirtualKeyStates.Down));
+            if (Window.Current == null)
+            {
+                return new InteropMouseState(0, 0, false);
+            }
+            else
+            {
+                return new InteropMouseState(0, 0,
+                    Window.Current.CoreWindow.GetKeyState(VirtualKey.LeftButton)
+                        .HasFlag(CoreVirtualKeyStates.Down));
+            }
         }
     }
 

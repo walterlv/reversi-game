@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Contacts;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -34,15 +37,17 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
 
         public async Task CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
-            var tasks = Game.Contents.Select(x =>
-                    (x, WindowsRuntimeSystemExtensions.AsTask(
-                        CanvasBitmap.LoadAsync(sender.Device,
-                            x.Path))))
+            var tasks = Game.Contents
+                .Where(x => !(x is SpriteFont))
+                .Select(x =>
+                    (x, CanvasBitmap.LoadAsync(sender.Device,
+                        new Uri($@"ms-appx:///GameContent/{x.Path}.png")).AsTask()))
                 .ToArray();
             await Task.WhenAll(tasks.Select(x => x.Item2)).ConfigureAwait(false);
-            _bitmapDictionary = tasks.ToDictionary(
-                x => x.Item1.Path,
-                x => x.Item2.Result);
+            foreach (var task in tasks)
+            {
+                _bitmapDictionary[task.Item1.Path] = task.Item2.Result;
+            }
         }
     }
 }
