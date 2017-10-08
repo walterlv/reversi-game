@@ -10,6 +10,9 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <xaml:CanvasAnimatedControl
+            Width="640" Height="640"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
             PointerMoved="CanvasAnimatedControl_PointerMoved"
             ClearColor="Black"
             CreateResources="CanvasAnimatedControl_CreateResources"
