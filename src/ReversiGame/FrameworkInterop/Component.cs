@@ -207,10 +207,26 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         public byte G { get; set; }
         public byte B { get; set; }
 
-        public static Color Black { get; set; }
-        public static Color Gold { get; set; }
-        public static Color White { get; set; }
-        public static Color Red { get; set; }
+        public Color(byte r, byte g, byte b)
+        {
+            A = 0xFF;
+            R = r;
+            G = g;
+            B = b;
+        }
+
+        public Color(byte a, byte r, byte g, byte b)
+        {
+            A = a;
+            R = r;
+            G = g;
+            B = b;
+        }
+
+        public static Color Black { get; set; } = new Color(0x00, 0x00, 0x00);
+        public static Color Gold { get; set; } = new Color(0xFF, 0xD7, 0x00);
+        public static Color White { get; set; } = new Color(0xFF, 0xFF, 0xFF);
+        public static Color Red { get; set; } = new Color(0xFF, 0x00, 0x00);
     }
 
     public struct Rectangle

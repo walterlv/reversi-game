@@ -10,30 +10,27 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
 {
     internal class InteropKeyboard : IKeyboard
     {
-        private CoreDispatcher _dispatcher;
-        private InteropKeyboardState _lastAsyncState;
+        private static readonly List<VirtualKey> PressingKeys = new List<VirtualKey>();
 
         public IKeyboardState GetState(params Keys[] keys)
         {
-            if (Window.Current == null)
+            return new InteropKeyboardState(
+                keys.Where(x => PressingKeys.Contains(x.ToVirtualKey())));
+        }
+
+        internal static void Press(VirtualKey key)
+        {
+            if (!PressingKeys.Contains(key))
             {
-                _dispatcher?.RunAsync(CoreDispatcherPriority.Low, () =>
-                {
-                    _lastAsyncState = new InteropKeyboardState(
-                        keys.Where(x =>
-                            Window.Current.CoreWindow.GetKeyState(x.ToVirtualKey())
-                                .HasFlag(CoreVirtualKeyStates.Down)));
-                });
-                return _lastAsyncState ?? new InteropKeyboardState(Enumerable.Empty<Keys>());
+                PressingKeys.Add(key);
             }
-            else
+        }
+
+        internal static void Release(VirtualKey key)
+        {
+            if (PressingKeys.Contains(key))
             {
-                _dispatcher = Window.Current.Dispatcher;
-                return new InteropKeyboardState(
-                    keys.Where(x =>
-                        Window.Current.CoreWindow.GetKeyState(x.ToVirtualKey())
-                            .HasFlag(CoreVirtualKeyStates.Down))
-                );
+                PressingKeys.Remove(key);
             }
         }
     }
@@ -61,30 +58,49 @@ namespace Walterlv.Gaming.Reversi.FrameworkInterop
 
     internal class InteropMouse : IMouse
     {
-        internal static Point LastMousePoint;
-        private CoreDispatcher _dispatcher;
-        private InteropMouseState _lastAsyncState;
+        private static Point _lastPosition;
+        private static readonly Queue<bool> LastButtonStates = new Queue<bool>();
 
         public IMouseState GetState()
         {
-            if (Window.Current == null)
+            if (LastButtonStates.Count > 1)
             {
-                _dispatcher?.RunAsync(CoreDispatcherPriority.Low, () =>
-                {
-                    _lastAsyncState = new InteropMouseState(
-                        (int)LastMousePoint.X, (int)LastMousePoint.Y,
-                        Window.Current.CoreWindow.GetKeyState(VirtualKey.LeftButton)
-                            .HasFlag(CoreVirtualKeyStates.Down));
-                });
-                return _lastAsyncState ?? new InteropMouseState(0, 0, false);
+                return new InteropMouseState(
+                    (int) _lastPosition.X, (int) _lastPosition.Y,
+                    LastButtonStates.Dequeue());
+            }
+            else if (LastButtonStates.Count == 1)
+            {
+                return new InteropMouseState(
+                    (int) _lastPosition.X, (int) _lastPosition.Y,
+                    LastButtonStates.First());
             }
             else
             {
-                _dispatcher = Window.Current.Dispatcher;
                 return new InteropMouseState(
-                    (int)LastMousePoint.X, (int)LastMousePoint.Y,
-                    Window.Current.CoreWindow.GetKeyState(VirtualKey.LeftButton)
-                        .HasFlag(CoreVirtualKeyStates.Down));
+                    (int) _lastPosition.X, (int) _lastPosition.Y,
+                    false);
+            }
+        }
+
+        internal static void EnqueueState(Point position)
+        {
+            _lastPosition = position;
+        }
+
+        internal static void EnqueueState(bool leftButtonState)
+        {
+            if (!LastButtonStates.Any())
+            {
+                LastButtonStates.Enqueue(leftButtonState);
+            }
+            else
+            {
+                var last = LastButtonStates.Last();
+                if (last != leftButtonState)
+                {
+                    LastButtonStates.Enqueue(leftButtonState);
+                }
             }
         }
     }

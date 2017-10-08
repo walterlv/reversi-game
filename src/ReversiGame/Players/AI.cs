@@ -13,7 +13,7 @@ namespace ReversiXNAGame.Players
     {
         // AI落子等待
         int waitTime;
-        int passedTime;
+        long passedTime;
         // AI对象
         ReversiAI reversiAI;
         ReversiPiecePosition AIPosition;
@@ -21,7 +21,7 @@ namespace ReversiXNAGame.Players
 
         public void SetAIType(int type)
         {
-            reversiAI = ReversiAIType.GetAI(type);
+            reversiAI = ReversiAIType.GetAI(type) ?? ReversiAIType.GetAI(1);
             reversiAI.AIInitialize(myPieceColor);
         }
 
@@ -36,13 +36,13 @@ namespace ReversiXNAGame.Players
         public override void Initialize()
         {
             waitTime = GameSettings.WaitTime;
-            passedTime = 0;
+            passedTime = 0l;
             base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (isMyTurn) passedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (isMyTurn) passedTime += (long)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (isMyTurn && !isMovingPiece)
             {
                 isMovePieceCompleted = false;

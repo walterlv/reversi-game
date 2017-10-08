@@ -16,7 +16,7 @@ namespace ReversiXNAGame.Messages
         Texture2D loadingTexture;
         // 显示时间
         int showTime;
-        int passedTime;
+        long passedTime;
 
         public Loading(Rectangle screenRec)
         {
@@ -37,7 +37,7 @@ namespace ReversiXNAGame.Messages
 
         public override void Update(GameTime gameTime)
         {
-            passedTime += gameTime.ElapsedGameTime.Milliseconds;
+            passedTime += (long) gameTime.ElapsedGameTime.TotalMilliseconds;
             if (passedTime > showTime)
                 curGame.State = GameState.CheckLoaded;
             base.Update(gameTime);

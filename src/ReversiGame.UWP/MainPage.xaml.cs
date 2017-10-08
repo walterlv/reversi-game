@@ -1,4 +1,5 @@
-﻿using Windows.Foundation;
+﻿using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -18,6 +19,8 @@ namespace Walterlv.Gaming.Reversi
         public MainPage()
         {
             InitializeComponent();
+            Window.Current.CoreWindow.KeyDown += OnKeyDown;
+            Window.Current.CoreWindow.KeyUp += OnKeyUp;
         }
 
         private Game _game;
@@ -48,6 +51,7 @@ namespace Walterlv.Gaming.Reversi
                 try
                 {
                     _game.Draw((GameTime) args.Timing.ElapsedTime);
+//                    ds.DrawText("123456", new System.Numerics.Vector2(100,100), Color.);
                 }
                 finally
                 {
@@ -58,7 +62,27 @@ namespace Walterlv.Gaming.Reversi
 
         private void CanvasAnimatedControl_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            InteropMouse.LastMousePoint = e.GetCurrentPoint((UIElement) sender).Position;
+            InteropMouse.EnqueueState(e.GetCurrentPoint((UIElement) sender).Position);
+        }
+
+        private void CanvasAnimatedControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            InteropMouse.EnqueueState(true);
+        }
+
+        private void CanvasAnimatedControl_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            InteropMouse.EnqueueState(false);
+        }
+
+        private void OnKeyDown(CoreWindow sender, KeyEventArgs e)
+        {
+            InteropKeyboard.Press(e.VirtualKey);
+        }
+
+        private void OnKeyUp(CoreWindow sender, KeyEventArgs e)
+        {
+            InteropKeyboard.Release(e.VirtualKey);
         }
     }
 }
