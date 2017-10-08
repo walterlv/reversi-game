@@ -107,8 +107,8 @@ namespace Walterlv.ReversiGame.FrameworkInterop
 
     public class Game : DrawableGameComponent
     {
-        internal Board board { get; set; }
-        public GameState State { get; set; }
+        public virtual Board board { get; protected set; }
+        public virtual GameState State { get; set; }
         public bool IsActive { get; set; } = true;
 
         private readonly List<GameContent> _contents = new List<GameContent>();

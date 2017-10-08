@@ -26,10 +26,10 @@ namespace ReversiXNAGame
         const int ScreenHeight = 640;
         SpriteFont debugFont;
 
-        public GameState State;
+        public GameState State { get; set; }
         PlayerSettingBoard playerSettings;
         Loading loading;
-        public Board board;
+        public override Board board { get; protected set; }
         FPSCounter fpsCounter;
 
         // 键盘状态

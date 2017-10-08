@@ -68,7 +68,6 @@ namespace ReversiXNAGame.Players
             if (movePieceTask != null && !movePieceTask.IsCompleted) movePieceTask.Wait();
             movePieceTask = new Task(() => reversiGame.PieceMoves());
             movePieceTask.Start();
-            await Task.Run(() => reversiGame.PieceMoves());
 
         }
         public virtual void MovePiece_Confirmed(bool confirmed, ReversiPiece piece, ReversiPiecePosition position, List<ReversiPiecePosition> positions)
