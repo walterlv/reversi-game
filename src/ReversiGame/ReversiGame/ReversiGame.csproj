@@ -7,7 +7,7 @@
     <ProjectGuid>{7EF7AD81-8CB5-43FA-A0C9-4125E82CB4C8}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReversiGame</RootNamespace>
+    <RootNamespace>Walterlv.Gaming.Reversi</RootNamespace>
     <AssemblyName>ReversiGame</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
