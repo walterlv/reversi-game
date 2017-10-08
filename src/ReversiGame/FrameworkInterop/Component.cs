@@ -23,7 +23,7 @@ namespace Walterlv.ReversiGame.FrameworkInterop
         {
         }
 
-        public T CreateGame<T>(IDrawingSession dc)
+        public static T CreateGame<T>(IDrawingSession dc)
             where T : Game, new()
         {
             var game = new T
@@ -130,8 +130,13 @@ namespace Walterlv.ReversiGame.FrameworkInterop
     {
     }
 
-    public class GameTime
+    public struct GameTime
     {
         public TimeSpan ElapsedGameTime { get; set; }
+
+        public static explicit operator GameTime(TimeSpan elapsedTime)
+        {
+            return new GameTime {ElapsedGameTime = elapsedTime};
+        }
     }
 }

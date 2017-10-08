@@ -20,7 +20,7 @@ namespace ReversiXNAGame
         Over,
     }
 
-    internal class ReversiXNAGame : Game
+    public class ReversiXNAGame : Game
     {
         const int ScreenWidth = 640;
         const int ScreenHeight = 640;
