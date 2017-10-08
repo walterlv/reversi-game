@@ -25,8 +25,8 @@ namespace ReversiXNAGame.Players
             reversiAI.AIInitialize(myPieceColor);
         }
 
-        public AI(Game game, SpriteBatch screenSpriteBatch, Rectangle boardRec, Piece[,] allPieces, ReversiPiece myColor)
-            : base(game, screenSpriteBatch, boardRec, allPieces, myColor)
+        public AI(Rectangle boardRec, Piece[,] allPieces, ReversiPiece myColor)
+            : base(boardRec, allPieces, myColor)
         {
             myType = PlayerTypes.AI;
             Name = "电脑";

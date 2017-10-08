@@ -21,8 +21,8 @@ namespace ReversiXNAGame.Players
         KeyboardState lastKeyboardState = new KeyboardState();
         bool isCtrlZPressed = false;
 
-        public Human(Game game, SpriteBatch screenSpriteBatch, Rectangle boardRec, Piece[,] allPieces, ReversiPiece myColor)
-            : base(game, screenSpriteBatch, boardRec, allPieces, myColor)
+        public Human(Rectangle boardRec, Piece[,] allPieces, ReversiPiece myColor)
+            : base(boardRec, allPieces, myColor)
         {
             myType = PlayerTypes.Human;
             Name = "您";

@@ -8,8 +8,6 @@ namespace ReversiXNAGame.Messages
 {
     public class Loading : DrawableGameComponent
     {
-        // 当前游戏
-        ReversiXNAGame curGame = null;
         // 画图范围
         Rectangle screenRectangle;
         // 加载纹理
@@ -20,11 +18,8 @@ namespace ReversiXNAGame.Messages
         int showTime;
         int passedTime;
 
-        public Loading(Game game, SpriteBatch screenSpriteBatch, Rectangle screenRec)
-            : base(game)
+        public Loading(Rectangle screenRec)
         {
-            curGame = (ReversiXNAGame)game;
-            spriteBatch = screenSpriteBatch;
             screenRectangle = screenRec;
             loadingTexture = curGame.Content.Load<Texture2D>(@"Images\Loading");
             background = curGame.Content.Load<Texture2D>(@"Images\LoadingBackground");

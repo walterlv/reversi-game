@@ -51,11 +51,8 @@ namespace ReversiXNAGame.ReversiBoard
         // 强制显示所有状态 (用于非棋盘如菜单等处)
         public bool ForceShow { get; set; }
 
-        public Piece(Game game, SpriteBatch screenSpriteBatch, Rectangle pieceRec)
-            : base(game)
+        public Piece(Rectangle pieceRec)
         {
-            curGame = (ReversiXNAGame)game;
-            spriteBatch = screenSpriteBatch;
             pieceRectangle = pieceRec;
             pieceTextureBlack = curGame.Content.Load<Texture2D>(@"Images\BlackPiece");
             pieceTextureWhite = curGame.Content.Load<Texture2D>(@"Images\WhitePiece");

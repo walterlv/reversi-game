@@ -5,6 +5,7 @@ using System.Linq;
 using ReversiXNAGame.ReversiBoard;
 using ReversiXNAGame.Messages;
 using ReversiXNAGame.Settings;
+using Walterlv.ReversiGame.FrameworkInterop;
 
 namespace ReversiXNAGame
 {
@@ -19,7 +20,7 @@ namespace ReversiXNAGame
         Over,
     }
 
-    internal class ReversiXNAGame : Microsoft.Xna.Framework.Game
+    internal class ReversiXNAGame : Game
     {
         const int ScreenWidth = 640;
         const int ScreenHeight = 640;
@@ -49,7 +50,7 @@ namespace ReversiXNAGame
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected override void Initialize()
+        public override void Initialize()
         {
             // TODO: 添加初始化逻辑
             graphics.PreferredBackBufferWidth = ScreenWidth;
@@ -65,7 +66,7 @@ namespace ReversiXNAGame
         /// <summary>
         /// LoadContent 在一次游戏中只调用一次, 这里是加载内容的地方.
         /// </summary>
-        protected override void LoadContent()
+        public override void LoadContent()
         {
             // 创建一个新的 SpriteBatch, 可以用来绘制纹理.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -73,17 +74,17 @@ namespace ReversiXNAGame
             // TODO: 使用 this.Content 来加载游戏内容.
             debugFont = Content.Load<SpriteFont>(@"Fonts\TitleFont");
             Rectangle boardRectangle = new Rectangle((ScreenWidth - ScreenHeight) / 2, 0, ScreenHeight, ScreenHeight);
-            playerSettings = new PlayerSettingBoard(this, spriteBatch, boardRectangle);
+            playerSettings = CreateChild<PlayerSettingBoard, Rectangle>(boardRectangle);
             playerSettings.Show(SettingType.Start);
-            loading = new Loading(this, spriteBatch, boardRectangle);
-            board = new Board(this, spriteBatch, boardRectangle);
-            fpsCounter = new FPSCounter(this, spriteBatch);
+            loading = CreateChild<Loading, Rectangle>(boardRectangle);
+            board = CreateChild<Board, Rectangle>(boardRectangle);
+            fpsCounter = CreateChild<FPSCounter>();
         }
 
         /// <summary>
         /// UnloadContent 在一次游戏中只调用一次, 这是卸载内容的地方.
         /// </summary>
-        protected override void UnloadContent()
+        public override void UnloadContent()
         {
             // TODO: 卸载任何非 ContentManager 管理的内容.
         }
@@ -92,7 +93,7 @@ namespace ReversiXNAGame
         /// 允许游戏允许逻辑例如更新地图, 检查碰撞, 收集输入, 或者播放音效.
         /// </summary>
         /// <param name="gameTime">提供一个游戏时间快照.</param>
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // 允许游戏退出
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -170,7 +171,7 @@ namespace ReversiXNAGame
         /// 当游戏需要绘制时会被调用
         /// </summary>
         /// <param name="gameTime">提供一个游戏时间快照.</param>
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 

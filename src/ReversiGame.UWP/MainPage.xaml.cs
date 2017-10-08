@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.Foundation;
+using Windows.UI.Xaml.Controls;
 using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 
@@ -23,7 +24,10 @@ namespace Walterlv.Gaming.Reversi
 
         private void CanvasAnimatedControl_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-
+            using (var ds = args.DrawingSession)
+            {
+                ds.FillRectangle(new Rect(), );
+            }
         }
     }
 }

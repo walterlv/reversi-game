@@ -15,23 +15,14 @@ namespace ReversiXNAGame.Messages
         SpriteFont messageFont;
         //Rectangle messageRectangle;
         Texture2D messageTexture;
-        int showFrames;
+        int showFrames = 0;
 
-        string MessageText;
+        string MessageText = "";
 
         public void ShowCannotMoveMessage(string cannotMoveName, string canMoveName)
         {
             MessageText = cannotMoveName + "无子可下, " + canMoveName + "继续下棋.";
             if (showFrames <= 0) showFrames = 200;
-        }
-
-        public Message(Game game, SpriteBatch screenSpriteBatch)
-            : base(game)
-        {
-            messageFont = curGame.Content.Load<SpriteFont>(@"Fonts\TitleFont");
-            //messageRectangle = messageRec;
-            MessageText = "";
-            showFrames = 0;
         }
 
         public override void Initialize()

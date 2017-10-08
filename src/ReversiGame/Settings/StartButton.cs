@@ -37,11 +37,8 @@ namespace ReversiXNAGame.Settings
         KeyboardState currentKeyboardState = new KeyboardState();
         KeyboardState lastKeyboardState = new KeyboardState();
 
-        public StartButton(Game game, SpriteBatch screenSpriteBatch, Rectangle buttonRec)
-            : base(game)
+        public StartButton(Rectangle buttonRec)
         {
-            curGame = (ReversiXNAGame)game;
-            spriteBatch = screenSpriteBatch;
             buttonRectangle = buttonRec;
 
             buttonTexture = null;
@@ -75,7 +72,7 @@ namespace ReversiXNAGame.Settings
                 if (currentMouseState.X >= buttonRectangle.Left && currentMouseState.Y >= buttonRectangle.Top
                     && currentMouseState.X <= buttonRectangle.Right && currentMouseState.Y <= buttonRectangle.Bottom)
                 {
-                    if (currentMouseState.Y <= buttonRectangle.Center.Y) isMouseInUp = true;
+                    if (currentMouseState.Y <= buttonRectangle.CenterY) isMouseInUp = true;
                     else isMouseInDown = true;
                 }
                 if (isMouseInUp || isMouseInDown)

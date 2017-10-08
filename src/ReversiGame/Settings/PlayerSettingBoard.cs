@@ -55,12 +55,9 @@ namespace ReversiXNAGame.Settings
             set { settingType = value; }
         }
 
-        public PlayerSettingBoard(Game game, SpriteBatch screenSpriteBatch, Rectangle boardRec)
-            : base(game)
+        public PlayerSettingBoard(Rectangle boardRec)
         {
-            curGame = (ReversiXNAGame)game;
             reversiGame = ReversiGame.CurrentGame;
-            spriteBatch = screenSpriteBatch;
             boardRectangle = boardRec;
 
             aiTypePieces = new Piece[2, AIMaxCount];
@@ -72,26 +69,26 @@ namespace ReversiXNAGame.Settings
             int pieceSize = boardRec.Width / ReversiGame.BoardSize;
             startButton = new StartButton(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 6, pieceSize * 2, pieceSize));
             startButton.Initialize(settingType);
-            showPieces[0] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 2, pieceSize, pieceSize));
+            showPieces[0] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 3, boardRec.Y + pieceSize * 2, pieceSize, pieceSize));
             showPieces[0].PieceState = PieceState.Black;
-            showPieces[1] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 4, boardRec.Y + pieceSize * 2, pieceSize, pieceSize));
+            showPieces[1] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 4, boardRec.Y + pieceSize * 2, pieceSize, pieceSize));
             showPieces[1].PieceState = PieceState.White;
-            playerTypePieces[0] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 1, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[0] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 1, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[0].CurrentDisplay = DisplayState.CanMove;
             chooseIndex[0] = 0;
             PlayerType[0] = PlayerTypes.Human;
-            playerTypePieces[1] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 2, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[1] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 2, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[1].CurrentDisplay = DisplayState.Normal;
-            playerTypePieces[2] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 5, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[2] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 5, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[2].CurrentDisplay = DisplayState.CanMove;
             chooseIndex[1] = 2;
             PlayerType[1] = PlayerTypes.AI;
-            playerTypePieces[3] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 6, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
+            playerTypePieces[3] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 6, boardRec.Y + pieceSize * 3, pieceSize, pieceSize));
             playerTypePieces[3].CurrentDisplay = DisplayState.Normal;
             for (int i = 0; i < AIMaxCount; i++)
-                aiTypePieces[0, i] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X, boardRec.Y + pieceSize * (i + 3), pieceSize, pieceSize));
+                aiTypePieces[0, i] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X, boardRec.Y + pieceSize * (i + 3), pieceSize, pieceSize));
             for (int i = 0; i < AIMaxCount; i++)
-                aiTypePieces[1, i] = new Piece(curGame, spriteBatch, new Rectangle(boardRec.X + pieceSize * 7, boardRec.Y + pieceSize * (i + 3), pieceSize, pieceSize));
+                aiTypePieces[1, i] = CreateChild<Piece, Rectangle>(new Rectangle(boardRec.X + pieceSize * 7, boardRec.Y + pieceSize * (i + 3), pieceSize, pieceSize));
             foreach (Piece piece in showPieces) piece.ForceShow = true;
             foreach (Piece piece in playerTypePieces) piece.ForceShow = true;
             foreach (Piece piece in aiTypePieces) piece.ForceShow = true;

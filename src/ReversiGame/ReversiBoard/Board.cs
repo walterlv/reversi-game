@@ -60,12 +60,9 @@ namespace ReversiXNAGame.ReversiBoard
         {
         }
 
-        public Board(Game game, SpriteBatch screenSpriteBatch, Rectangle boardRec)
-            : base(game)
+        public Board(Rectangle boardRec)
         {
             CurrentBoard = this;
-            curGame = (ReversiXNAGame)game;
-            spriteBatch = screenSpriteBatch;
             BoardRectangle = boardRectangle = boardRec;
             boardTexture = curGame.Content.Load<Texture2D>(@"Images\Board");
             debugFont = curGame.Content.Load<SpriteFont>(@"Fonts\TitleFont");
@@ -74,7 +71,10 @@ namespace ReversiXNAGame.ReversiBoard
             {
                 for (int j = 0; j < ReversiGame.BoardSize; j++)
                 {
-                    pieces[i, j] = new Piece(curGame, screenSpriteBatch, new Rectangle(boardRec.X + pieceSize * i, boardRec.Y + pieceSize * j, pieceSize, pieceSize));
+                    pieces[i, j] = CreateChild<Piece, Rectangle>(
+                        new Rectangle(
+                            boardRec.X + pieceSize * i,
+                            boardRec.Y + pieceSize * j, pieceSize, pieceSize));
                 }
             }
         }
@@ -89,10 +89,10 @@ namespace ReversiXNAGame.ReversiBoard
             // 创建玩家
             for (int i = 0; i < 2; i++)
                 if (PlayerSettings.Player[i].Type == PlayerTypes.Human)
-                    player[i] = new Human(curGame, spriteBatch, boardRectangle, pieces, i == 0 ? ReversiPiece.Black : ReversiPiece.White);
+                    player[i] = CreateChild<Human, Rectangle, Piece[,], ReversiPiece>(boardRectangle, pieces, i == 0 ? ReversiPiece.Black : ReversiPiece.White);
                 else if (PlayerSettings.Player[i].Type == PlayerTypes.AI)
                 {
-                    player[i] = new AI(curGame, spriteBatch, boardRectangle, pieces, i == 0 ? ReversiPiece.Black : ReversiPiece.White);
+                    player[i] = CreateChild<AI, Rectangle, Piece[,], ReversiPiece>(boardRectangle, pieces, i == 0 ? ReversiPiece.Black : ReversiPiece.White);
                     ((AI)(player[i])).SetAIType(PlayerSettings.Player[i].AIIndex);
                 }
             // 请求刷新棋盘

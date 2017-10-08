@@ -9,16 +9,11 @@ namespace ReversiXNAGame.Messages
     public class CannotMoveMessage : DrawableGameComponent
     {
         SpriteFont messageFont;
-        Texture2D messageTexture;
-        int showFrames;
+        int showFrames = 0;
 
-        public CannotMoveMessage(Game game, SpriteBatch screenSpriteBatch)
-            : base(game)
+        public CannotMoveMessage()
         {
-            curGame = (ReversiXNAGame)game;
-            spriteBatch = screenSpriteBatch;
             messageFont = curGame.Content.Load<SpriteFont>(@"Fonts\TitleFont");
-            showFrames = 0;
         }
 
         public override void Initialize()

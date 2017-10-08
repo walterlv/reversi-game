@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using System.Threading;
+using System.Threading.Tasks;
 using Reversi;
 using ReversiXNAGame.ReversiBoard;
 using ReversiXNAGame.Messages;
@@ -50,7 +51,7 @@ namespace ReversiXNAGame.Players
         public static bool isMovingPiece;
         private Message message;
         // 下棋线程
-        Thread movePieceThread;
+        Task movePieceTask;
 
         public void ToMyTurn()
         {
@@ -58,15 +59,17 @@ namespace ReversiXNAGame.Players
             CurrentPlayer = this;
         }
 
-        protected void MovePiece(ReversiPiecePosition position)
+        protected async void MovePiece(ReversiPiecePosition position)
         {
             isMovingPiece = true;
             pieces[reversiGame.LastPosition.X, reversiGame.LastPosition.Y].IsLastPiece = false;
             pieces[position.X, position.Y].IsLastPiece = true;
             reversiGame.SetPieceMoveArgs(position, MovePiece_Confirmed, MovePiece_Completed);
-            if (movePieceThread != null && movePieceThread.IsAlive) movePieceThread.Abort();
-            movePieceThread = new Thread(new ThreadStart(reversiGame.PieceMoves));
-            movePieceThread.Start();
+            if (movePieceTask != null && !movePieceTask.IsCompleted) movePieceTask.Wait();
+            movePieceTask = new Task(() => reversiGame.PieceMoves());
+            movePieceTask.Start();
+            await Task.Run(() => reversiGame.PieceMoves());
+
         }
         public virtual void MovePiece_Confirmed(bool confirmed, ReversiPiece piece, ReversiPiecePosition position, List<ReversiPiecePosition> positions)
         {
@@ -115,12 +118,9 @@ namespace ReversiXNAGame.Players
         {
         }
 
-        public Player(Game game,SpriteBatch screenSpriteBatch, Rectangle boardRec, Piece[,] allPieces, ReversiPiece myColor)
-            : base(game)
+        public Player(Rectangle boardRec, Piece[,] allPieces, ReversiPiece myColor)
         {
-            curGame = (ReversiXNAGame)game;
             reversiGame = ReversiGame.CurrentGame;
-            spriteBatch = screenSpriteBatch;
             boardRectangle = boardRec;
             pieces = allPieces;
             myPieceColor = myColor;
@@ -128,7 +128,7 @@ namespace ReversiXNAGame.Players
             else Players[1] = this;
             CurrentPlayer = Players[0];
 
-            message = new Message(curGame, spriteBatch);
+            message = CreateChild<Message>();
             isMyTurn = false;
             isMovePieceCompleted = true;
             isMovingPiece = false;
